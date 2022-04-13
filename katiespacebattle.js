@@ -1,4 +1,4 @@
-// //Space Battle JS Game
+// //Space Battle JavaScript Game
 // //In order to continue building your knowledge of OOP, loops, and functions today you will build a rudimentary space battle game. The game will be programmed for, and played in the browser console. You will need to use pop-up prompts to get user input.
 
 // Today's task is to build something according to specification. Pretend you have received the specification below for a class project. Planning your program is a challenge unto itself. START SIMPLE. Break the problem down as far as you can and don't move on until the smallest piece works.

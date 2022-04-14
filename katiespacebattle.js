@@ -136,6 +136,25 @@
 //  Step 2: Create methods of attack attached to object
 //  Step 3: Create gameplay function
 
+const alienFleet = [];
+const alienShipFactory = () => {
+  for (let i = 0; i < 6; i++) {
+    let newAlienShip = {
+      hull: calculateHullValue(),
+      firePower: calculateFirePower(),
+      accuracy: calculateAccuracy(),
+      attack(boolean) {
+        if (boolean == true) {
+          // humanShip.hull - firepower;
+        }
+      }
+    }
+    alienFleet.push(newAlienShip);
+  }
+};
+
+alienShipFactory();
+
 const calculateHullValue = () => {
   const min = Math.ceil(3);
   const max = Math.floor(6);
@@ -156,10 +175,11 @@ const humanShip = {
   hull: 20,
   firepower: 5,
   accuracy:0.7,
-  attack() {
-    if (hitProbability == true) {
-      newAlienShip.hull - 5
-    }
+  attack(boolean) {
+    if (boolean == true) {
+      console.log("HIT!");
+      alienFleet[0].hull - 5
+    } else console.log ("MISS!")
   }
 }
 
@@ -169,26 +189,14 @@ const hitProbability = (accuracy) => {
   } else return false;
 }
 
-const alienFleet = [];
-const alienShipFactory = () => {
-  for (let i = 0; i < 6; i++) {
-    let newAlienShip = {
-      hull: calculateHullValue(),
-      firePower: calculateFirePower(),
-      accuracy: calculateAccuracy(),
-      attack() {
-        if (hitProbability == true) {
-          humanShip.hull - firepower;
-        }
-      }
-    }
-    alienFleet.push(newAlienShip);
-  }
-};
 
-alienShipFactory();
-console.log(alienFleet[0]);
+console.log(alienFleet[0].hull);
 
 const roundOne = () => {
-
+  // for (let i = 0; i < alienFleet[0].hull; i++) {
+  let rollToHit = hitProbability(humanShip.accuracy); 
+  humanShip.attack(rollToHit);
+  console.log(alienFleet[0])
 }
+
+roundOne();

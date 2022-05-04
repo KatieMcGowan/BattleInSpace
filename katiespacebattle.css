@@ -1,10 +1,38 @@
 body {
-  background-color: white;
+  background-image: url(jeremy-thomas-E0AHdsENmDg-unsplash.jpg);
+  background-size: cover;
   font-family: 'Orbitron', sans-serif;
-  color: rgb(88, 21, 121);
 }
 h1 {
   font-size: 38px;
+  color: rgb(88, 21, 121);
   text-decoration: underline;
-  text-shadow: 1px 1px 2px rgb(130, 216, 151)
+  text-shadow: 3px 3px 3px rgb(130, 216, 151);
+  text-align: center;
+}
+.container {
+  display: flex;
+  justify-content: space-around;
+  font-size: 24px;
+}
+#human {
+  background-color: red;
+  width: auto;
+  border-color: black;
+}
+#alien {
+  background-color: greenyellow;
+  width: auto;
+  border-color: black;
+}
+button {
+  display: flex;
+  justify-content: center;
+  margin: 100px;
+  font-size: 24px;
+  font-family: 'Orbitron', sans-serif;
+  color: rgb(88, 21, 121);
+  text-shadow: 3px 3px 3px rgb(130, 216, 151);
+  background-color: blueviolet;
+  text-align: center;
 }

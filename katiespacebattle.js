@@ -188,6 +188,8 @@ const humanShip = {
   }
 }
 
+let humanShipHull = humanShip.hull;
+
 console.log("The human ship has  " + humanShip.hull + " hull points.")
 
 const hitProbability = (accuracy) => {
@@ -223,13 +225,39 @@ const continueBattle = () => {
   } else return false;
 }
 
-const wholeBattle = () => {
-  humanShipAttack();
-  alienShipAttack();
+continueBattle();
+
+let toContinue = continueBattle();
+
+const wholeBattle = (boolean) => {
+  for (let i = 0; toContinue == true; i++) {
+    console.log("Round " + (i+1))
+    humanShipAttack();
+    alienShipAttack();
+  } 
+  console.log("Game over")
   // } else if (alienFleet.length <= 0 && humanShip.hull < 20) {
   //   console.log("The human ship defeats the alien fleet!")
   // } else if (alienFleet.length > 0 && humanShip.hull <= 0) {
   //   console.log("The alien fleet has defeated the human ship")
   // }
 }
-wholeBattle();
+
+// wholeBattle(toContinue);
+
+console.log(alienFleet);
+
+//call gameplay round in a loop 
+//if continue game == true, execute gameplay round
+//at the end of the function, if continue game == false, return, else change variable to continue game
+//for (let i = 0; continue == true; i++)
+
+document.getElementById('attack').style.visibility = 'hidden'
+
+document.getElementById('begin').onclick = function changeContent() {
+  document.getElementById('human').innerHTML = humanShip.hull + "/" + humanShip.hull;
+  document.getElementById('alien').innerHTML = firstAlienHull + "/" + firstAlienHull;
+  document.getElementById('begin').style.visibility = 'hidden';
+  document.getElementById('attack').style.visibility = 'visible'
+}
+

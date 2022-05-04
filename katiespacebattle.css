@@ -5,7 +5,7 @@ body {
 }
 h1 {
   font-size: 38px;
-  color: rgb(88, 21, 121);
+  color: rgb(178, 114, 208);
   text-decoration: underline;
   text-shadow: 3px 3px 3px rgb(130, 216, 151);
   text-align: center;
@@ -25,9 +25,25 @@ h1 {
   width: auto;
   border-color: black;
 }
+#narrative {
+  font-size: 24px;
+  color: rgb(178, 114, 208);
+  text-shadow: 3px 3px 3px rgb(130, 216, 151);
+  text-align: center;
+}
+#humanattack {
+  font-size: 24px;
+  color: rgb(178, 114, 208);
+  text-shadow: 3px 3px 3px rgb(130, 216, 151);
+  text-align: center;
+}
+#alienattack {
+  font-size: 24px;
+  color: rgb(178, 114, 208);
+  text-shadow: 3px 3px 3px rgb(130, 216, 151);
+  text-align: center;
+}
 button {
-  display: flex;
-  justify-content: center;
   margin: 100px;
   font-size: 24px;
   font-family: 'Orbitron', sans-serif;

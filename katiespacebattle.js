@@ -136,6 +136,12 @@
 //  Step 2: Create methods of attack attached to object
 //  Step 3: Create gameplay function
 
+
+
+
+
+
+//Calculate Value Functions:
 const calculateHullValue = () => {
   const min = Math.ceil(3);
   const max = Math.floor(6);
@@ -152,6 +158,7 @@ const calculateAccuracy = () => {
   return Math.random() * (.8 - .6) + .6;
 }
 
+//Objects:
 const alienFleet = [];
 const alienShipFactory = () => {
   for (let i = 0; i < 6; i++) {
@@ -171,9 +178,13 @@ const alienShipFactory = () => {
 };
 
 alienShipFactory();
-console.log(alienFleet);
-
 let firstAlienHull = alienFleet[0].hull
+
+const alienBaseHull = [];
+for (let i = 0; i < alienFleet.length; i++) {
+  alienBaseHull.push(alienFleet[i].hull)
+}
+
 console.log("The leading alien ship has " + firstAlienHull + " hull points.")
 
 const humanShip = {
@@ -182,82 +193,67 @@ const humanShip = {
   accuracy:0.7,
   attack(boolean) {
     if (boolean == true) {
-      console.log("Human hits it's target!");
       alienFleet[0].hull = alienFleet[0].hull - 5
-    } else console.log ("Human misses it's target!")
+      return "Human hits it's target!";
+    } else return "Human misses it's target!"
   }
 }
 
-let humanShipHull = humanShip.hull;
-
 console.log("The human ship has  " + humanShip.hull + " hull points.")
 
+//Attack Functions:
 const hitProbability = (accuracy) => {
   if (Math.random() < accuracy) {
     return true;
   } else return false;
 }
 
-// console.log(firstAlienHull);
-
 const humanShipAttack = () => {
   let rollToHit = hitProbability(humanShip.accuracy); 
   humanShip.attack(rollToHit);
   if (alienFleet[0].hull <= 0) {
     alienFleet.shift()
+    alienBaseHull.shift()
+    document.getElementById('alien').innerHTML = firstAlienHull + "/" + alienBaseHull[0];
+    document.getElementById('humanattack').innerHTML = "Alien ship destroyed!"
     console.log("Alien ship destroyed!")
-  } else console.log("The alien ship has " + alienFleet[0].hull + " hull points left.");
+  } else {
+    document.getElementById('humanattack').innerHTML = "Hit alien ship!"
+    console.log("The alien ship has " + alienFleet[0].hull + " hull points left.")
+  }
 }
-
-// humanShipAttack();
 
 const alienShipAttack = () => {
   let rolltoHit = hitProbability(alienFleet[0].accuracy);
   alienFleet[0].attack(rolltoHit);
-  console.log("The human ship has " + humanShip.hull + " hull points.");
+  document.getElementById('human').innerHTML = humanShip.hull + "/" + 20;
+  document.getElementById('alienattack').innerHTML ="Hit human ship!"
+  console.log("The human ship has " + humanShip.hull + " hull points.")
 }
 
-// alienShipAttack();
 
-const continueBattle = () => {
-  if (alienFleet.length > 0 && humanShip.hull > 0) {
-    return true;
-  } else return false;
-}
+// const continueBattle = () => {
+//   if (alienFleet.length > 0 && humanShip.hull > 0) {
+//     return true;
+//   } else return false;
+// }
 
-continueBattle();
+// continueBattle();
 
-let toContinue = continueBattle();
+// let toContinue = continueBattle();
 
-const wholeBattle = (boolean) => {
-  for (let i = 0; toContinue == true; i++) {
-    console.log("Round " + (i+1))
+const wholeBattle = () => {
     humanShipAttack();
     alienShipAttack();
-  } 
-  console.log("Game over")
-  // } else if (alienFleet.length <= 0 && humanShip.hull < 20) {
-  //   console.log("The human ship defeats the alien fleet!")
-  // } else if (alienFleet.length > 0 && humanShip.hull <= 0) {
-  //   console.log("The alien fleet has defeated the human ship")
-  // }
-}
+} 
 
-// wholeBattle(toContinue);
-
-console.log(alienFleet);
-
-//call gameplay round in a loop 
-//if continue game == true, execute gameplay round
-//at the end of the function, if continue game == false, return, else change variable to continue game
-//for (let i = 0; continue == true; i++)
-
-document.getElementById('attack').style.visibility = 'hidden'
+document.getElementById('attack').style.visibility = 'hidden';
 
 document.getElementById('begin').onclick = function changeContent() {
   document.getElementById('human').innerHTML = humanShip.hull + "/" + humanShip.hull;
   document.getElementById('alien').innerHTML = firstAlienHull + "/" + firstAlienHull;
   document.getElementById('begin').style.visibility = 'hidden';
-  document.getElementById('attack').style.visibility = 'visible'
+  document.getElementById('attack').style.visibility = 'visible';
 }
 
+document.getElementById('attack').onclick = () => wholeBattle();

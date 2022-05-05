@@ -16,12 +16,12 @@ h1 {
   font-size: 24px;
 }
 #human {
-  background-color: red;
+  background-color: rgb(213, 46, 94);
   width: auto;
   border-color: black;
 }
 #alien {
-  background-color: greenyellow;
+  background-color: rgb(156, 243, 26);
   width: auto;
   border-color: black;
 }
@@ -33,14 +33,14 @@ h1 {
 }
 #humanattack {
   font-size: 24px;
-  color: rgb(178, 114, 208);
-  text-shadow: 3px 3px 3px rgb(130, 216, 151);
+  color: rgb(213, 46, 94);
+  text-shadow: 3px 3px 3px black;
   text-align: center;
 }
 #alienattack {
   font-size: 24px;
-  color: rgb(178, 114, 208);
-  text-shadow: 3px 3px 3px rgb(130, 216, 151);
+  color: rgb(156, 243, 26);
+  text-shadow: 3px 3px 3px black;
   text-align: center;
 }
 button {

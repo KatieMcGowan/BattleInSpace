@@ -158,6 +158,12 @@ const calculateAccuracy = () => {
   return Math.random() * (.8 - .6) + .6;
 }
 
+const hitProbability = (accuracy) => {
+  if (Math.random() < accuracy) {
+    return true;
+  } else return false;
+}
+
 //Objects:
 const alienFleet = [];
 const alienShipFactory = () => {
@@ -166,18 +172,30 @@ const alienShipFactory = () => {
       hull: calculateHullValue(),
       firePower: calculateFirePower(),
       accuracy: calculateAccuracy(),
-      attack(boolean) {
-        if (boolean == true) {
-          humanShip.hull = humanShip.hull - this.firePower;
+      attack() {
+        let rolltoHit = hitProbability(alienFleet[0].accuracy);
+        if (!rolltoHit) {
+          console.log("Alien misses it's target!")
+          document.getElementById('alienattack').innerHTML = "Missed human ship!"
+        } else {
           console.log("Alien hits it's target!")
-        } else console.log("Alien misses it's target!")
+          humanShip.hull = humanShip.hull - this.firePower;
+          document.getElementById('human').innerHTML = humanShip.hull + "/" + 20;
+          document.getElementById('alienattack').innerHTML ="Hit human ship!";
+          console.log("The human ship has " + humanShip.hull + " hull points.");
+        }  
       }
     }
     alienFleet.push(newAlienShip);
   }
-};
+}
 
 alienShipFactory();
+
+console.log(alienFleet)
+
+let alienShipCounter = alienFleet.length;
+
 let firstAlienHull = alienFleet[0].hull
 
 const alienBaseHull = [];
@@ -185,66 +203,45 @@ for (let i = 0; i < alienFleet.length; i++) {
   alienBaseHull.push(alienFleet[i].hull)
 }
 
+console.log(alienFleet);
+
 console.log("The leading alien ship has " + firstAlienHull + " hull points.")
 
 const humanShip = {
   hull: 20,
   firepower: 5,
   accuracy:0.7,
-  attack(boolean) {
-    if (boolean == true) {
+  attack() {
+    let rollToHit = hitProbability(this.accuracy); 
+    if (!rollToHit) {
+      document.getElementById('humanattack').innerHTML = "Missed alien ship!"
+      console.log("Human misses it's target!")
+    } else {
       alienFleet[0].hull = alienFleet[0].hull - 5
-      return "Human hits it's target!";
-    } else return "Human misses it's target!"
+      console.log("Human hits it's target!")
+      if (alienFleet[0].hull <= 0) {
+        alienFleet.shift()
+        alienBaseHull.shift()
+        alienShipCounter = alienFleet.length;
+        document.getElementById('alien').innerHTML = firstAlienHull + "/" + alienBaseHull[0];
+        document.getElementById('humanattack').innerHTML = "Alien ship destroyed! There are " + alienShipCounter + " alien ships left!"
+        console.log("Alien ship destroyed!")
+      } else if (alienFleet[0].hull > 0) {
+        document.getElementById('alien').innerHTML = firstAlienHull + "/" + alienBaseHull[0]
+        document.getElementById('humanattack').innerHTML = "Hit alien ship!"
+        console.log("The alien ship has " + alienFleet[0].hull + " hull points left.")    
+      } 
+    }
   }
 }
 
 console.log("The human ship has  " + humanShip.hull + " hull points.")
 
-//Attack Functions:
-const hitProbability = (accuracy) => {
-  if (Math.random() < accuracy) {
-    return true;
-  } else return false;
-}
-
-const humanShipAttack = () => {
-  let rollToHit = hitProbability(humanShip.accuracy); 
-  humanShip.attack(rollToHit);
-  if (alienFleet[0].hull <= 0) {
-    alienFleet.shift()
-    alienBaseHull.shift()
-    document.getElementById('alien').innerHTML = firstAlienHull + "/" + alienBaseHull[0];
-    document.getElementById('humanattack').innerHTML = "Alien ship destroyed!"
-    console.log("Alien ship destroyed!")
-  } else {
-    document.getElementById('humanattack').innerHTML = "Hit alien ship!"
-    console.log("The alien ship has " + alienFleet[0].hull + " hull points left.")
-  }
-}
-
-const alienShipAttack = () => {
-  let rolltoHit = hitProbability(alienFleet[0].accuracy);
-  alienFleet[0].attack(rolltoHit);
-  document.getElementById('human').innerHTML = humanShip.hull + "/" + 20;
-  document.getElementById('alienattack').innerHTML ="Hit human ship!"
-  console.log("The human ship has " + humanShip.hull + " hull points.")
-}
-
-
-// const continueBattle = () => {
-//   if (alienFleet.length > 0 && humanShip.hull > 0) {
-//     return true;
-//   } else return false;
-// }
-
-// continueBattle();
-
-// let toContinue = continueBattle();
 
 const wholeBattle = () => {
-    humanShipAttack();
-    alienShipAttack();
+  humanShip.attack();
+  alienFleet[0].attack();
+  console.log(alienFleet);
 } 
 
 document.getElementById('attack').style.visibility = 'hidden';

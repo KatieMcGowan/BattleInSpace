@@ -6,8 +6,8 @@ body {
 h1 {
   font-size: 38px;
   color: rgb(178, 114, 208);
+  text-shadow: 3px 3px 3px black;
   text-decoration: underline;
-  text-shadow: 3px 3px 3px rgb(130, 216, 151);
   text-align: center;
 }
 .container {
@@ -15,18 +15,60 @@ h1 {
   justify-content: space-around;
   font-size: 24px;
 }
+.humancontainer {
+  display: flex;
+  flex-direction: column;
+  padding: 10px 10px;
+  border: 10px;
+  border-color: black
+}
 #human {
-  background-color: rgb(213, 46, 94);
+  background-color: rgb(65, 104, 232);
   width: auto;
   border-color: black;
 }
+#humanfirepower {
+  background-color: rgb(65, 104, 232);
+  width: auto;
+  border-color: black;
+}
+#humansprite {
+  background-color: rgb(65, 104, 232);
+  width: 125px;
+  border-color: maroon;
+  border-width: 50px;
+  border-radius: 25px;
+  text-align: center;
+  padding: 20px 15px 15px 15px;
+}
 #humanflee {
-  background-color: rgb(213, 46, 94);
+  background-color: rgb(65, 104, 232);
   width: auto;
   border-color: black;
   text-align: center;
 }
+#aliensprite {
+  background-color: rgb(156, 243, 26);
+  width: 125px;
+  border-color: blueviolet;
+  border-width: 50px;
+  border-radius: 25px;
+  text-align: center;
+  padding: 20px 15px 15px 15px;
+}
+.aliencontainer {
+  display: flex;
+  flex-direction: column;
+  padding: 10px 10px;
+  border: 10px;
+  border-color: black
+}
 #alien {
+  background-color: rgb(156, 243, 26);
+  width: auto;
+  border-color: black;
+}
+#alienfirepower {
   background-color: rgb(156, 243, 26);
   width: auto;
   border-color: black;
@@ -34,12 +76,12 @@ h1 {
 #narrative {
   font-size: 24px;
   color: rgb(178, 114, 208);
-  text-shadow: 3px 3px 3px rgb(130, 216, 151);
+  text-shadow: 3px 3px 3px black;
   text-align: center;
 }
 #humanattack {
   font-size: 24px;
-  color: rgb(213, 46, 94);
+  color: rgb(65, 104, 232);
   text-shadow: 3px 3px 3px black;
   text-align: center;
 }
@@ -60,7 +102,6 @@ button {
   font-size: 24px;
   width: auto;
   font-family: 'Orbitron', sans-serif;
-  color: rgb(88, 21, 121);
-  text-shadow: 3px 3px 3px rgb(130, 216, 151);
+  color: black;
   background-color: blueviolet;
 }

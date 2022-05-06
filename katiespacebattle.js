@@ -181,7 +181,7 @@ const alienShipFactory = () => {
           } else {
             console.log("Alien hits it's target!")
             humanShip.hull = humanShip.hull - this.firePower;
-            document.getElementById('human').innerHTML = humanShip.hull + "/" + 20;
+            document.getElementById('human').innerHTML = "Hull: " + humanShip.hull + "/" + 20;
             document.getElementById('alienattack').innerHTML ="Hit human ship!";
             console.log("The human ship has " + humanShip.hull + " hull points.");
           }  
@@ -222,13 +222,15 @@ const humanShip = {
         alienShipCounter = alienFleet.length;
         console.log(alienFleet);
           if (alienFleet.length > 0) {
-            document.getElementById('alien').innerHTML = alienFleet[0].hull + "/" + alienBaseHull[0];
-            document.getElementById('humanattack').innerHTML = "Alien ship destroyed! There are " + alienShipCounter + " alien ships left!"
-            console.log("Alien ship destroyed!")
+            document.getElementById('alien').innerHTML = "Hull: " + alienFleet[0].hull + "/" + alienBaseHull[0];
+            document.getElementById('alienfirepower').innerHTML = "Firepower: " + alienFleet[0].firePower;
+            document.getElementById('humanattack').innerHTML = "Alien ship destroyed! There are " + alienShipCounter + " alien ships left!";
+            document.getElementById('aliensprite').innerHTML = alienShipCounter;
+            console.log("Alien ship destroyed!");
             document.getElementById('flee').style.visibility = 'visible';
           }
       } else if (alienFleet[0].hull > 0) {
-        document.getElementById('alien').innerHTML = alienFleet[0].hull + "/" + alienBaseHull[0]
+        document.getElementById('alien').innerHTML = "Hull: " + alienFleet[0].hull + "/" + alienBaseHull[0]
         document.getElementById('humanattack').innerHTML = "Hit alien ship!"
         console.log("The alien ship has " + alienFleet[0].hull + " hull point left.")    
       } 
@@ -252,7 +254,9 @@ const wholeBattle = () => {
     document.getElementById('attack').style.visibility = 'hidden';
     document.getElementById('flee').style.visibility = 'hidden';
     document.getElementById('alien').style.visibility = 'hidden';
-    document.getElementById('alienattack').style.visibility = 'hidden'
+    document.getElementById('alienfirepower').style.visibility = 'hidden';
+    document.getElementById('alienattack').style.visibility = 'hidden';
+    document.getElementById('aliensprite').style.visibility = 'hidden'
   } else if (alienFleet.length > 0) {
     alienFleet[0].attack();
   }
@@ -261,6 +265,8 @@ const wholeBattle = () => {
     document.getElementById('attack').style.visibility = 'hidden';
     document.getElementById('flee').style.visibility = 'hidden';
     document.getElementById('human').style.visibility = 'hidden';
+    document.getElementById('humanfirepower').style.visibility = 'hidden';
+    document.getElementById('humansprite').style.visibility = 'hidden'
   } 
   console.log(alienFleet.length)
   console.log('******************************');
@@ -271,10 +277,13 @@ document.getElementById('flee').style.visibility = 'hidden';
 
 document.getElementById('begin').onclick = function changeContent() {
   console.log(alienFleet);
-  document.getElementById('human').innerHTML = humanShip.hull + "/" + humanShip.hull;
-  document.getElementById('alien').innerHTML = alienFleet[0].hull + "/" + alienBaseHull[0];
+  document.getElementById('human').innerHTML = "Hull: " + humanShip.hull + "/" + humanShip.hull;
+  document.getElementById('humanfirepower').innerHTML = "Firepower: " + humanShip.firepower;
+  document.getElementById('alien').innerHTML = "Hull: " + alienFleet[0].hull + "/" + alienBaseHull[0];
+  document.getElementById('alienfirepower').innerHTML = "Firepower: " + alienFleet[0].firePower;
   document.getElementById('begin').style.visibility = 'hidden';
   document.getElementById('attack').style.visibility = 'visible';
+  document.getElementById('narrative').innerHTML = "Click the button to attack the leading alien ship. The alien attacks after."
 }
 
 document.getElementById('attack').onclick = () => wholeBattle(alienFleet);
@@ -282,8 +291,10 @@ document.getElementById('attack').onclick = () => wholeBattle(alienFleet);
 
 document.getElementById('flee').onclick = function changeContent() {
   document.getElementById('attack').style.visibility = 'hidden';
+  document.getElementById('aliensprite').style.visibility = 'hidden';
   document.getElementById('alien').style.visibility = 'hidden';
+  document.getElementById('alienfirepower').style.visibility = 'hidden';
   document.getElementById('alienattack').style.visibility = 'hidden';
   document.getElementById('flee').style.visibility = 'hidden';
-  document.getElementById('humanattack').innerHTML = 'You flee the battle successfully. The aliens will be back for vengeance.'
+  document.getElementById('humanattack').innerHTML = 'You flee the battle successfully. The aliens will be back for vengeance. Refresh to play again.'
 }

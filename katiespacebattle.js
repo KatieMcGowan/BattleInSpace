@@ -165,7 +165,7 @@ const hitProbability = (accuracy) => {
 }
 
 //Objects:
-const alienFleet = [];
+let alienFleet = [];
 const alienShipFactory = () => {
   for (let i = 0; i < 6; i++) {
     let newAlienShip = {
@@ -192,20 +192,15 @@ const alienShipFactory = () => {
 
 alienShipFactory();
 
-console.log(alienFleet)
-
 let alienShipCounter = alienFleet.length;
 
-let firstAlienHull = alienFleet[0].hull
-
 const alienBaseHull = [];
+
 for (let i = 0; i < alienFleet.length; i++) {
   alienBaseHull.push(alienFleet[i].hull)
 }
 
-console.log(alienFleet);
-
-console.log("The leading alien ship has " + firstAlienHull + " hull points.")
+console.log("The leading alien ship has " + alienFleet[0].hull + " hull points.")
 
 const humanShip = {
   hull: 20,
@@ -213,24 +208,26 @@ const humanShip = {
   accuracy:0.7,
   attack() {
     let rollToHit = hitProbability(this.accuracy); 
-    if (!rollToHit) {
-      document.getElementById('humanattack').innerHTML = "Missed alien ship!"
-      console.log("Human misses it's target!")
-    } else {
+    if (rollToHit) {
       alienFleet[0].hull = alienFleet[0].hull - 5
       console.log("Human hits it's target!")
       if (alienFleet[0].hull <= 0) {
+        console.log('Shifting Array')
         alienFleet.shift()
         alienBaseHull.shift()
         alienShipCounter = alienFleet.length;
-        document.getElementById('alien').innerHTML = firstAlienHull + "/" + alienBaseHull[0];
+        document.getElementById('alien').innerHTML = alienFleet[0].hull + "/" + alienBaseHull[0];
         document.getElementById('humanattack').innerHTML = "Alien ship destroyed! There are " + alienShipCounter + " alien ships left!"
         console.log("Alien ship destroyed!")
+        document.getElementById('flee').style.visibility = 'visible';
       } else if (alienFleet[0].hull > 0) {
-        document.getElementById('alien').innerHTML = firstAlienHull + "/" + alienBaseHull[0]
+        document.getElementById('alien').innerHTML = alienFleet[0].hull + "/" + alienBaseHull[0]
         document.getElementById('humanattack').innerHTML = "Hit alien ship!"
-        console.log("The alien ship has " + alienFleet[0].hull + " hull points left.")    
+        console.log("The alien ship has " + alienFleet[0].hull + " hull point left.")    
       } 
+    } else {
+      document.getElementById('humanattack').innerHTML = "Missed alien ship!"
+      console.log("Human misses it's target!")
     }
   }
 }
@@ -239,18 +236,43 @@ console.log("The human ship has  " + humanShip.hull + " hull points.")
 
 
 const wholeBattle = () => {
-  humanShip.attack();
-  alienFleet[0].attack();
-  console.log(alienFleet);
+  console.log('******************************');
+  console.log(alienFleet.length);
+  if (alienFleet.length > 0 && humanShip.hull > 0) {
+    humanShip.attack();
+    alienFleet[0].attack();
+  } else if (humanShip.hull == 0) {
+    document.getElementById('alienattack').innerHTML = "The aliens destroy the human ship. Refresh to play again."
+    document.getElementById('attack').style.visibility = 'hidden';
+    document.getElementById('flee').style.visibility = 'hidden';
+    document.getElementById('human').style.visibility = 'hidden';
+  } else if (alienFleet.length == 0) {
+    document.getElementById('humanattack').innerHTML = "The human ship destroys the alien fleet. Refresh to play again."
+    document.getElementById('attack').style.visibility = 'hidden';
+    document.getElementById('flee').style.visibility = 'hidden';
+    document.getElementById('alien').style.visibility = 'hidden';
+  }
+  console.log('******************************');
 } 
 
 document.getElementById('attack').style.visibility = 'hidden';
+document.getElementById('flee').style.visibility = 'hidden';
 
 document.getElementById('begin').onclick = function changeContent() {
+  console.log(alienFleet);
   document.getElementById('human').innerHTML = humanShip.hull + "/" + humanShip.hull;
-  document.getElementById('alien').innerHTML = firstAlienHull + "/" + firstAlienHull;
+  document.getElementById('alien').innerHTML = alienFleet[0].hull + "/" + alienBaseHull[0];
   document.getElementById('begin').style.visibility = 'hidden';
   document.getElementById('attack').style.visibility = 'visible';
 }
 
-document.getElementById('attack').onclick = () => wholeBattle();
+document.getElementById('attack').onclick = () => wholeBattle(alienFleet);
+
+
+document.getElementById('flee').onclick = function changeContent() {
+  document.getElementById('attack').style.visibility = 'hidden';
+  document.getElementById('alien').style.visibility = 'hidden';
+  document.getElementById('alienattack').style.visibility = 'hidden';
+  document.getElementById('flee').style.visibility = 'hidden';
+  document.getElementById('humanattack').innerHTML = 'You flee the battle successfully. The aliens will be back for vengeance.'
+}

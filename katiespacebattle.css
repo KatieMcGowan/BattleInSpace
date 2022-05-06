@@ -20,6 +20,12 @@ h1 {
   width: auto;
   border-color: black;
 }
+#humanflee {
+  background-color: rgb(213, 46, 94);
+  width: auto;
+  border-color: black;
+  text-align: center;
+}
 #alien {
   background-color: rgb(156, 243, 26);
   width: auto;
@@ -43,12 +49,18 @@ h1 {
   text-shadow: 3px 3px 3px black;
   text-align: center;
 }
+.battle {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-content: center;
+}
 button {
-  margin: 100px;
+  margin: 5px;
   font-size: 24px;
+  width: auto;
   font-family: 'Orbitron', sans-serif;
   color: rgb(88, 21, 121);
   text-shadow: 3px 3px 3px rgb(130, 216, 151);
   background-color: blueviolet;
-  text-align: center;
 }

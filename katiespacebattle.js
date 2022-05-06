@@ -185,7 +185,7 @@ const alienShipFactory = () => {
             document.getElementById('alienattack').innerHTML ="Hit human ship!";
             console.log("The human ship has " + humanShip.hull + " hull points.");
           }  
-        } else {
+        } else if (alienFleet.length == 0) {
           document.getElementById('alienattack').style.visibility.hidden;
         }
       }
@@ -246,13 +246,15 @@ const wholeBattle = () => {
   console.log('******************************');
   console.log(alienFleet.length);
   humanShip.attack();
+  console.log(alienFleet.length);
   if (alienFleet.length == 0) {
     document.getElementById('humanattack').innerHTML = "The human ship destroys the alien fleet. Refresh to play again."
     document.getElementById('attack').style.visibility = 'hidden';
     document.getElementById('flee').style.visibility = 'hidden';
     document.getElementById('alien').style.visibility = 'hidden';
-  } else {
-  alienFleet[0].attack();
+    document.getElementById('alienattack').style.visibility = 'hidden'
+  } else if (alienFleet.length > 0) {
+    alienFleet[0].attack();
   }
   if (humanShip.hull <= 0) {
     document.getElementById('alienattack').innerHTML = "The aliens destroy the human ship. Refresh to play again."
